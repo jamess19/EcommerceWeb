@@ -18,8 +18,6 @@ app.use(express.json()); // parse application/json
 app.use(cors()); // enable CORS - Cross Origin Resource Sharing
 app.use(helmet()); // secure your app by setting various HTTP headers
 app.use(morgan('dev')); // log every request to the console
-app.use('/api/products', productRoutes);
-
 app.use(async (req,res,next) => {
   try {
     const decision = await aj.protect(req, {
@@ -38,7 +36,7 @@ app.use(async (req,res,next) => {
       return;
     }
     // check spoofed bot
-    if(decision.result.some(result => result.reason.isBot() && result.reason.isSpoofed())){
+    if( decision.result && decision.result.some(result => result.reason.isBot() && result.reason.isSpoofed())){
       res.status(403).json({error: "Spoofed bot detected"});
       return;
     }
@@ -48,6 +46,8 @@ app.use(async (req,res,next) => {
     next(error);
   }
 })
+app.use('/api/products', productRoutes);
+
 
 async function initDB(){
   try {

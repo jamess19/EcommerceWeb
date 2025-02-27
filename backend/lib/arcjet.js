@@ -5,7 +5,7 @@ import "dotenv/config"
 // init arcjet
 
 export const aj = arcjet({
-    key: process.env.key,
+    key: process.env.ARCJET_KEY,
     characteristics: ["ip.src"],
     rules: [
         // bot detection
@@ -22,7 +22,7 @@ export const aj = arcjet({
             mode: "LIVE",
             refillRate: 5,
             interval: 10,
-            capacity: 10,
+            capacity: 5,
         })
     ],
 })
