@@ -8,15 +8,19 @@ import dotenv from 'dotenv';
 import productRoutes from './routes/productRoutes.js';
 import { sql } from './config/db.js';
 import { aj } from './lib/arcjet.js';
-
+import path from 'path'
 dotenv.config(); // load environment variables from a .env file into process.env
 
 const PORT = process.env.PORT || 3000;
 const app = express(); 
+const __dirname = path.resolve();
 
 app.use(express.json()); // parse application/json
 app.use(cors()); // enable CORS - Cross Origin Resource Sharing
-app.use(helmet()); // secure your app by setting various HTTP headers
+app.use(helmet({
+  contentSecurityPolicy: false,
+}
+)); // secure your app by setting various HTTP headers
 app.use(morgan('dev')); // log every request to the console
 app.use(async (req,res,next) => {
   try {
@@ -48,6 +52,14 @@ app.use(async (req,res,next) => {
 })
 app.use('/api/products', productRoutes);
 
+if(process.env.NODE_ENV === "production") {
+  // server our react app
+  app.use(express.static(path.join(__dirname, "frontend/dist")))
+
+  app.get("*", (req, res) => {
+    res.sendFile((path.resolve(__dirname, "frontend", "dist", "index.html")))
+  })
+}
 
 async function initDB(){
   try {

@@ -2,9 +2,9 @@ import React, { useEffect } from 'react'
 import { useProductStore } from '../store/useProductStore'
 import { CirclePlus, RefreshCcw} from 'lucide-react';
 import ProductCard from '../components/ProductCard';
-
+import AddProductModal from '../components/AddProductModal';
 function HomePage() {
-    const {products, loading, error, fetchProducts} = useProductStore();
+    const {products, loading, error, fetchProducts, deleteProduct} = useProductStore();
     useEffect(()=> {
         fetchProducts()
     }, [fetchProducts])
@@ -13,7 +13,8 @@ function HomePage() {
   return (
     <main className='max-w-6xl mx-auto px-4 py-8'>
         <div className='flex justify-between items-center'>
-            <button className='btn btn-primary rounded-lg'>
+            <button className='btn btn-primary rounded-lg' 
+          onClick={() => document.getElementById("add_product_modal").showModal()}>
             <CirclePlus className='size-5'/>
             Add products
             </button>
@@ -21,7 +22,7 @@ function HomePage() {
             <RefreshCcw className='size-5'/>
             </button>
         </div>  
-
+        <AddProductModal/>
         {error && <div className='alert alert-error'>{error}</div>}
 
         {loading ? (
