@@ -2,7 +2,7 @@
 
 ## 📌 Giới thiệu
 
-**James Shop** là một dự án javascript cơ bản tìm kiếm và quản lý sản phẩm trực tuyến, chủ yếu tích hợp **Arcjet** để bảo vệ API khỏi bot và giới hạn tốc độ truy cập, và sử dụng **PostgreSQL (Neon)** làm cơ sở dữ liệu cloud nhanh và linh hoạt.
+**James Shop** là một dự án javascript CRUD cơ bản tìm kiếm và quản lý sản phẩm trực tuyến, chủ yếu tích hợp **Arcjet** để bảo vệ API khỏi bot và giới hạn tốc độ truy cập, và sử dụng **PostgreSQL (Neon)** làm cơ sở dữ liệu cloud nhanh và linh hoạt.
 
 ---
 
